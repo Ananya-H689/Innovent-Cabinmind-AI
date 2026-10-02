@@ -1,1 +1,89 @@
+# 📘 CabinMind AI — Stage 1: Concept & Local PoC
 
+**Tata Technologies InnoVent-27 · Team Hustle Squad · Category: Computer Science / IT**
+**Track:** AI at the Edge — Aerospace · **Subcategory:** Edge AI for Connected, Secure & Software-Defined Aerospace Systems
+
+📂 **All Stage 1 files:** https://drive.google.com/drive/folders/1UMAdadyq2bNXHj_VQwOcG5WrO6rwwWAN?usp=drive_link
+✈️ **Stage 2 (working prototype):** see the main [README](README.md) · 🔴 **Live app:** https://cabinmindaiapp.vercel.app/#/engine
+
+---
+
+## 🎯 Stage 1 in one line
+
+> *"Aircraft monitor engines and avionics with precision — nobody monitors the humans inside."*
+> CabinMind AI is a per-seat, privacy-first Edge AI platform that **senses** passenger wellbeing, **predicts** risk before it escalates, and **adapts** the cabin automatically.
+
+## ❗ The problem we chose
+
+| Problem | Why it hurts |
+|---|---|
+| 😰 **Flight anxiety & panic** | 25M+ people in the US alone have aviophobia; crew only act after a visible breakdown |
+| 🩺 **Undetected medical risk** | In-flight medical emergencies occur roughly 1 in 15,000–50,000 passengers; DVT risk rises after 4+ hours of immobility |
+| 🌀 **Turbulence shock** | Leading cause of in-flight injuries; PA warning gives ~30 seconds |
+| 😴 **Post-flight fatigue** | No airline builds a recovery plan from actual in-flight data |
+| 🤐 **Silent distress** | Most distressed passengers never press the call button |
+
+## 💡 The solution — Sense · Predict · Adapt
+
+| Layer | What happens |
+|---|---|
+| **SENSE** | Seat-embedded, non-wearable sensing: HRV/heart rate, GSR, seat pressure & posture, movement, temperature, ambient noise, flight data |
+| **PREDICT** | On-board Edge AI fuses signals and classifies stress, fatigue, dehydration and DVT risk; works with limited connectivity |
+| **ADAPT** | Light, airflow and calming audio adjust; crew gets a discreet alert with seat, risk level and suggested action |
+
+### Four core features
+1. **Stress-Aware Cabin Adaptation** – per-seat state (calm / mild anxiety / high stress / distress) drives lighting and sound
+2. **Predictive Turbulence Pre-Calming** – planned T−12 / T−8 / T−4 minute sequence instead of a ~30-second announcement
+3. **Silent Medical Escalation** – immobility (DVT), dehydration proxy and panic detection trigger private crew alerts
+4. **Post-Flight Fatigue & Recovery Score** – personalised recovery plan after landing
+
+## 🔍 Does it already exist? (our research)
+
+We benchmarked public disclosures, papers and patents from Airbus, Boeing, Collins Aerospace, Honeywell, Safran and Panasonic, plus IDTechEx research. Components exist separately (automotive emotion sensing, smart cabin lighting, seat-occupancy AI, turbulence forecasting). **We did not find a public system that combines per-passenger physiological sensing, Edge AI, adaptive cabin response, crew alerting and post-flight recovery in one embedded platform.** *(This is a team review of public sources, not a legal patent search.)*
+
+## 🧪 Stage 1 proof of concept (runs on a laptop)
+
+A runnable **local simulation** of the Sense → Predict → Adapt pipeline, no AWS account needed.
+
+- **`simulator.py`** generates a synthetic **4-hour flight, 24 seats** (HRV, GSR, movement)
+- **`dashboard.html`**: live crew dashboard with cabin heat map, alerts, turbulence banner, play/pause/scrub and 3x/8x speed. **Double-click to open.**
+
+Scripted events: stress spike at ~T+35 (red) · dehydration flag at ~T+92 (amber) · DVT-risk flag at ~T+150 (amber) · turbulence pre-calm sequence at ~T+228 to T+240.
+
+⚠️ **Honest status:** simulated data only. Not a live AWS demo, and no physical hardware at Stage 1.
+
+## 🗂️ What's in the Stage 1 folder
+
+| File / folder | What it is |
+|---|---|
+| `CabinMind_AI_Proposal.pdf` | Full written proposal: problem, existing-solution research, architecture, four features |
+| `CabinMind_AI_InnoVent27_Presentation_v2.pptx` | Stage 1 pitch deck |
+| `CabinMind AI POC Walkthrough.mp4` | ~6.5 min proof-of-concept walkthrough video |
+| `CabinMind_AI_Local_PoC_Demo/` | `simulator.py`, `dashboard.html`, `flight_data.json`, dashboard PDF, PoC README |
+| `UIUX Designs/` | Crew dashboard and mobile app design PDFs |
+| `INNOVENT.txt` | Submission answers (problem, solution, tech stack, impact, originality) |
+| `architecture.png`, `aws_poc_pipeline.png` | System and AWS PoC pipeline diagrams |
+| `Full concept in a image.png`, `concept_hero.png`, `four_pillars.png`, `business_model.png`, `Cabin_mind AI Logo.png` | Concept, business-model and brand visuals |
+
+## 🏗️ Planned tech stack (Stage 1 vision)
+
+Embedded sensing (HRV, GSR, pressure, IMU, temperature, noise) → on-board Edge AI (sensor fusion; Random Forest, XGBoost, LSTM, anomaly detection) → AWS (IoT Core, Lambda, SageMaker, DynamoDB, S3, API Gateway) → React dashboards. Python, scikit-learn, TensorFlow, NumPy, Pandas.
+
+## 🔄 How Stage 1 became Stage 2
+
+| Stage 1 (vision) | Stage 2 (what we built) |
+|---|---|
+| Broad sensor suite incl. IR/thermal and microphone | Focused, low-cost **4-sensor rig** (MAX30102, GSR, FSR-402, MPU-6050) + LED/buzzer on an ESP32, Rs 1,850 |
+| ML model options listed | **Random Forest trained**: 90.3% accuracy, 86.4% macro F1 *(synthetic data)* |
+| Laptop-only simulated dashboard | **Deployed web app**, 3D cabin twin, passenger companion, Copilot |
+| AWS pipeline planned | AWS ingest/read Lambda **code written and unit-tested** |
+| Privacy as a principle | Privacy enforced in firmware and cloud code (raw data stays on the seat, opt-in consent) |
+
+## 🔒 Privacy principle (since day one)
+
+Passengers opt in; raw biometrics never leave the seat unit — only classified states are transmitted.
+
+## 👥 Team Hustle Squad
+
+Ananya Hebbar *(Team Lead, CSE)* · Nisha Manoj Gunagi *(EC)* · Afra Rafeek K *(EC)* · Anjali P *(CSE)* · Afsheen Banu *(EC)*
+Mangalore Institute of Technology & Engineering (MITE), Moodabidri · Batch 2027
